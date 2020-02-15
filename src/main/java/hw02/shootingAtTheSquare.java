@@ -104,6 +104,7 @@ public class shootingAtTheSquare {
         int [][] targets = new int [targetsNumber][2];
         make_ran(targets);
         makeBoard(board);
+        System.out.println("All set. Get ready to rumble!");
         shoot(board,targets);
     }
 }
