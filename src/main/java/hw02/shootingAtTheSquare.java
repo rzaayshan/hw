@@ -68,7 +68,7 @@ public class shootingAtTheSquare {
     }
 
 //******main game*******
-    static void shoot(String[][] board, int[][] targets){
+    static void shoot(String[][] board, int[][] targets, int targetsnumber){
         Scanner s = new Scanner(System.in);
         String lineS, barS;
         int line, bar,i=0;
@@ -88,7 +88,7 @@ public class shootingAtTheSquare {
             if(checkShoot(line,bar,targets)){
                 board[line][bar]="x";
                 i++;
-                if(i==3){
+                if(i==targetsnumber){
                     showBoard(board);
                     System.out.print("You have won!");
                     break;}
@@ -100,11 +100,12 @@ public class shootingAtTheSquare {
 
     public static void main(String[] args) {
         String [][] board = new String [6][6];
-        int targetsNumber = 3;
+        System.out.println("How many targets do you want?");
+        int targetsNumber = new Scanner(System.in).nextInt();
         int [][] targets = new int [targetsNumber][2];
-        make_ran(targets);
         makeBoard(board);
+        make_ran(targets);
         System.out.println("All set. Get ready to rumble!");
-        shoot(board,targets);
+        shoot(board,targets,targetsNumber);
     }
 }
