@@ -21,20 +21,22 @@ public class shootingAtTheSquare {
             System.out.println();}
     }
 
-//*****checking input format*****
+    //*****checking input format*****
     static boolean check(String a){
+        if(a.equals("")){
+            System.out.println("Empty input!");
+            return false;}
         for (int i=0;i<a.length();i++)
             if(!Character.isDigit(a.charAt(i))){
                 System.out.println("Please, write number!");
                 return false;}
         if(Integer.parseInt(a)>5 || Integer.parseInt(a)<0){
             System.out.println("Please, choose number in the range of [1,5]!");
-            return false;
-        }
+            return false;}
         return true;
     }
 
-//****checking player shoot target or not*****
+    //****checking player shoot target or not*****
     static boolean checkShoot(int y, int x, int [][] target){
         for(int i=0;i<target.length;i++)
             if(target[i][0]==y && target[i][1]==x){
@@ -44,7 +46,7 @@ public class shootingAtTheSquare {
         return false;
     }
 
-//*******making random pairs******
+    //*******making random pairs******
     static void make_ran(int [][]a){
         int i=0;
         int x,y;
@@ -58,7 +60,7 @@ public class shootingAtTheSquare {
             }
         } }
 
-//****checking pair is unique or not****
+    //****checking pair is unique or not****
     static boolean checkUnique(int[][] a, int y, int x){
         for(int i=0;i<a.length;i++)
             if(y==a[i][0])
@@ -67,7 +69,7 @@ public class shootingAtTheSquare {
         return true;
     }
 
-//******main game*******
+    //******main game*******
     static void shoot(String[][] board, int[][] targets, int targetsnumber){
         Scanner s = new Scanner(System.in);
         String lineS, barS;
