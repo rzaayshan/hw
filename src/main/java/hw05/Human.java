@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Human {
     private String name, surname;
     private int year,iq;
-    Family family;
+    private Family family;
     String [][] schedule = {{"Monday",""},{"Tuesday",""},{"Wednesday",""},{"Thursday",""},
             {"Friday",""},{"Saturday",""},{"Sunday",""}};
 
@@ -18,12 +18,11 @@ public class Human {
         this.surname=surname;
         this.year=year;
     }
-   Human(String name, String surname, int year, Human father, Human mother){
+    Human(String name, String surname, int year, Family family){
         this.name=name;
         this.surname=surname;
         this.year=year;
-        this.family.setMother(mother);
-        this.family.setFather(father);
+        this.family=family;
     }
     static {
         System.out.println("Human class is being loaded");
@@ -31,7 +30,6 @@ public class Human {
     {
         System.out.println("Object of human class is created");
     }
-
     void greetPet(){
         System.out.printf("Hello, %s.\n", family.getPet().getNickname());
     }
@@ -92,6 +90,13 @@ public class Human {
         return schedule;
     }
 
+    void setFamily(Family family){
+            this.family=family;
+    }
+    Family getFamily(){
+        return family;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,8 +109,8 @@ public class Human {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, surname, year, iq, family);
-        result = 31 * result + Arrays.hashCode(schedule);
+        int result = Objects.hash(name, surname, year);
+        result = 31 * result ;
         return result;
     }
 }

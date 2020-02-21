@@ -1,41 +1,30 @@
 package hw05;
 
+
 import java.util.Arrays;
 
 public class happyFamily {
-
-
     public static void main(String[] args) {
-       Human father, mother, child;
-       Pet pet = new Pet();
-       pet.setNickname("Lucky");
-       pet.setHabits("play");
-       pet.setAge(1);
-       pet.setSpecies("dog");
-       pet.setTricklevel(45);
+        Human father, mother, child1,child2;
+        Family family;
+        Pet pet;
         father = new Human();
         father.setName("Alpay");
         father.setSurname("Rzayev");
         mother = new Human("Xədicə", "Rzayeva", 1971);
-        child = new Human("Gülay", "Rzayeva", 1992);
-        child.setIq(95);
-        Family family = new Family(father,mother);
-        family.addChild(child);
-        child.family.setPet(pet);
-        Human child2 = new Human();
+        family = new Family(father,mother);
+        child1 = new Human("Gülay", "Rzayeva", 1992, family);
+        child2 = new Human("Nicat", "Rzayev", 1990, family);
+        child1.setIq(95);
+        pet = new Pet("dog","Lucky",null,88,1);
+        family.setPet(pet);
+        family.addChild(child1);
         family.addChild(child2);
-        child2.setName("Jale");
-
-
-
-
-
-
-
-
-
-
-
+        //***after adding child***
+        System.out.println(family);
+        family.deleteChild(child2);
+        //**after deleting child
+        System.out.println(family);
     }
 
 

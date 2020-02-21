@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Pet {
     private String species,nickname;
-    private String [] habits = new String[5];
+    private String [] habits;
     private int tricklevel,age,habitNumber=0;
 
     Pet(){
@@ -28,7 +28,6 @@ public class Pet {
     {
         System.out.println("Object of pet class is created");
     }
-
     void eat(){
         System.out.println("I am eating.");
     }
@@ -44,7 +43,6 @@ public class Pet {
         return s;
     }
 
-
     void setNickname(String nickname){
         this.nickname=nickname;
     }
@@ -58,14 +56,15 @@ public class Pet {
         return this.species;
     }
     void setHabits(String habit){
-        this.habits[habitNumber++]=habit;
-
-    }
-    String []getHabits(){
-        String []k = new String [habitNumber];
+        String []habitsNew = new String[habitNumber+1];
         for(int i=0;i<habitNumber;i++)
-            k[i]=habits[i];
-        return k;
+            habitsNew[i]=habits[i];
+        habitsNew[habitNumber++]=habit;
+        habits=habitsNew;
+    }
+
+    String []getHabits(){
+        return habits;
     }
 
     void setTricklevel(int tricklevel){
@@ -80,9 +79,6 @@ public class Pet {
     int getAge(){
         return this.age;
     }
-
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,7 +88,6 @@ public class Pet {
                 Objects.equals(nickname, pet.nickname) &&
                 Objects.equals(age, pet.age);
     }
-
     @Override
     public int hashCode() {
         int result = Objects.hash(species, nickname, tricklevel, age);

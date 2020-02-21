@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Family {
     private Human mother;
     private Human father;
-    private Human []children = new Human[5];
+    private Human []children;
     private Pet pet;
     private int childNumber=0;
     Family(Human father, Human mother){
@@ -44,33 +44,46 @@ public class Family {
     }
 
     void addChild(Human child) {
-        this.children[childNumber] = child;
-        child.family = this;
-        childNumber++;
+        Human []newChildren = new Human[childNumber+1];
+        for(int i=0;i<childNumber;i++)
+            newChildren[i]=children[i];
+        newChildren[childNumber++]=child;
+        child.setFamily(this);
+        children=newChildren;
     }
+
     boolean deleteChild(Human child){
-        for(int j=0;j<childNumber;j++)
-            if(children[j].hashCode()==child.hashCode()){
-                children[j]=null;
-                childNumber--;
-                return true;
-            }
-        return false;
+        if(childNumber<1)
+            return false;
+        Human []newChildren = new Human[childNumber-1];
+        for(int i=0;i<childNumber-1;i++){
+            if(children[i].hashCode()!=child.hashCode())           //I wrote it like this to show
+                newChildren[i]=children[i];                         //hashcode's and equals's differences
+            if(children[i].hashCode()==child.hashCode()){
+                if(children.equals(child))
+                    continue;
+                else
+                    newChildren[i]=children[i];}
+        }
+        child.setFamily(null);
+        childNumber--;
+        children=newChildren;
+        return true;
     }
 
     int countFamily(){
         return(childNumber+2);
     }
-    java.lang.String[]childrenArray(){
-        java.lang.String[]a = new java.lang.String[childNumber];
+    String[]childrenArray(){
+        String[]a = new String[childNumber];
         for(int j=0;j<childNumber;j++)
             a[j]=children[j].getName()+" "+children[j].getSurname();
         return a;
     }
 
-    public java.lang.String toString(){
-        return String.format("Family{Father: %s %s, Mother: %s %s, Children: %s}", father.getName(),father.getSurname(),
-                mother.getName(), mother.getSurname(), Arrays.toString(childrenArray()));
+    public String toString(){
+        return String.format("Family{Father: %s %s, Mother: %s %s, Children: %s, Members: %d}", father.getName(),father.getSurname(),
+                mother.getName(), mother.getSurname(), Arrays.toString(childrenArray()),countFamily());
     }
 
     @Override
