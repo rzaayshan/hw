@@ -24,9 +24,9 @@ public class happyFamily {
         System.out.println(pet);
 
         //for garbage collector
-        /*for(int i=0;i<100000;i++){
+        for(int i=0;i<100000;i++){
             new Human();
-        }*/
+        }
 
 
 
