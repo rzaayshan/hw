@@ -1,15 +1,15 @@
-package hw06;
+package hw07;
 
 import java.util.Arrays;
 import java.util.Objects;
 
 public class Family {
-    private Human mother;
-    private Human father;
-    private Human []children;
+    private Woman mother;
+    private Man father;
+    private Human[]children;
     private Pet pet;
     private int childNumber=0;
-    Family(Human father, Human mother){
+    Family(Man father, Woman mother){
         this.mother=mother;
         this.father=father;
     }
@@ -19,13 +19,13 @@ public class Family {
     {
         System.out.println("Object of family class is created");
     }
-    void setMother(Human mother){
+    void setMother(Woman mother){
         this.mother=mother;
     }
     Human getMother(){
         return this.mother;
     }
-    void setFather(Human father){
+    void setFather(Man father){
         this.father=father;
     }
     Human getFather(){
@@ -44,7 +44,7 @@ public class Family {
     }
 
     void addChild(Human child) {
-        Human []newChildren = new Human[childNumber+1];
+        Human[]newChildren = new Human[childNumber+1];
         for(int i=0;i<childNumber;i++)
             newChildren[i]=children[i];
         newChildren[childNumber++]=child;
@@ -56,7 +56,7 @@ public class Family {
         boolean flag = false;
         if(childNumber<1)
             return false;
-        Human []newChildren = new Human[childNumber-1];
+        Human[]newChildren = new Human[childNumber-1];
         for(int i=0;i<childNumber-1;i++){
             if(children[i].hashCode()!=child.hashCode())           //I wrote it like this to show
                 newChildren[i]=children[i];                         //hashcode's and equals's differences
@@ -81,7 +81,7 @@ public class Family {
             return;
         Human child = new Human();
         child=children[index];
-        Human []newChildren = new Human[childNumber-1];
+        Human[]newChildren = new Human[childNumber-1];
         int j=0;
         for(int i=0;i<childNumber-1;i++){
             if(j==index)

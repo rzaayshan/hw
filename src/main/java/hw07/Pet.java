@@ -1,50 +1,25 @@
-package hw06;
+package hw07;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Pet {
-    private String nickname;
-    private Species species;
-    private String [] habits;
-    private int tricklevel,age,habitNumber=0;
-
+public abstract class Pet {
+    String nickname;
+    Species species = Species.UNKNOWN;
+    String [] habits;
+    int tricklevel,age,habitNumber=0;
     Pet(){
 
     }
-    Pet(Species species, String nickname){
-        this.species=species;
+    Pet(String nickname){
         this.nickname=nickname;
     }
-    Pet(Species species, String nickname, String []habits, int tricklevel, int age){
-        this.species=species;
+    Pet(String nickname, String []habits, int tricklevel, int age){
         this.nickname=nickname;
         this.habits=habits;
         this.tricklevel=tricklevel;
         this.age=age;
     }
-    static {
-        System.out.println("Pet class is being loaded");
-    }
-    {
-        System.out.println("Object of pet class is created");
-    }
-    void eat(){
-        System.out.println("I am eating.");
-    }
-    void respond(){
-        System.out.printf("Hello, owner. I am %s. I miss you!\n",this.nickname);
-    }
-    void foul(){
-        System.out.println("I need to cover it up.\n");
-    }
-    public String toString(){
-        String s = String.format("%s{nickname='%s', age=%d, trickLevel=%d, habits=%s, It %s, %s, has %d legs }",
-                species.toString(),nickname,age,tricklevel, Arrays.toString(habits),
-                species.canFly? "can fly" : "can't fly", species.hasFur? "has fur" : "hasn't fur", species.getNumberOfLegs() );
-        return s;
-    }
-
     void setNickname(String nickname){
         this.nickname=nickname;
     }
@@ -81,6 +56,10 @@ public class Pet {
     int getAge(){
         return this.age;
     }
+    void eat(){
+        System.out.println("I am eating.");
+    }
+    abstract void respond();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,8 +83,9 @@ public class Pet {
     }
 
     enum Species {
-        DOG(false,4,true),CAT(false,4,true),
-        FISH(false,0,false), BIRD(true, 2, false);
+        Dog(false,4,true),DomesticCat(false,4,true),
+        Fish(false,0,false), Bird(true, 2, false),
+        Robocat(false,4, false), UNKNOWN(false,0,false);
         boolean canFly;
         int numberOfLegs;
         boolean hasFur;
@@ -124,5 +104,4 @@ public class Pet {
             return hasFur;
         }
 
-    }
-}
+    }}
