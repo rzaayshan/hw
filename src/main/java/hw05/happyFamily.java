@@ -7,7 +7,7 @@ public class happyFamily {
     public static void main(String[] args) {
         Human father, mother, child1,child2;
         Family family;
-        Pet pet;
+        Pet pet ;
         father = new Human();
         father.setName("Alpay");
         father.setSurname("Rzayev");
