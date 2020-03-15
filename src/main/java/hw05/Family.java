@@ -8,82 +8,86 @@ public class Family {
     private Human father;
     private Human []children;
     private Pet pet;
-    private int childNumber=0;
-    Family(Human father, Human mother){
-        this.mother=mother;
-        this.father=father;
-    }
+
     static {
-        System.out.println("Family class is being loaded");
+        System.out.println("A new Family class is created");
     }
-    {
-        System.out.println("Object of family class is created");
-    }
-    void setMother(Human mother){
+
+    Family(Human mother, Human father){
         this.mother=mother;
-    }
-    Human getMother(){
-        return this.mother;
-    }
-    void setFather(Human father){
         this.father=father;
-    }
-    Human getFather(){
-        return this.father;
-    }
-    void setPet(Pet pet){
-        this.pet=pet;
-    }
-    Pet getPet(){
-        return this.pet;
+        children=new Human[0];
+        System.out.println("A new Family object is created");
     }
 
-
-    Human[] getChildren(){
-        return children;
-    }
-
-    void addChild(Human child) {
-        Human []newChildren = new Human[childNumber+1];
-        for(int i=0;i<childNumber;i++)
+    void addChild(Human child){
+        int l = children.length;
+        Human [] newChildren = new Human[l+1];
+        for(int i=0;i<l;i++)
             newChildren[i]=children[i];
-        newChildren[childNumber++]=child;
-        child.setFamily(this);
+        newChildren[l]=child;
         children=newChildren;
+        child.setFamily(this);
     }
 
     boolean deleteChild(Human child){
-        if(childNumber<1)
-            return false;
-        Human []newChildren = new Human[childNumber-1];
-        for(int i=0;i<childNumber-1;i++){
-            if(children[i].hashCode()!=child.hashCode())           //I wrote it like this to show
-                newChildren[i]=children[i];                         //hashcode's and equals's differences
-            if(children[i].hashCode()==child.hashCode()){
-                if(children.equals(child))
+        if(children.length>0){
+            int l = children.length;
+            Human []newChildren = new Human[l-1];
+            int i=0,j=0;
+            for(;i<l;i++){
+                if(children[i].hashCode()==child.hashCode() && children[i].equals(child))
                     continue;
-                else
-                    newChildren[i]=children[i];}
-        }
-        child.setFamily(null);
-        childNumber--;
-        children=newChildren;
-        return true;
+                newChildren[j++]=children[i];
+            }
+            if (i!=j) {
+                child.setFamily(null);
+                children=newChildren;
+                return true;
+            }}
+        return false;
     }
 
     int countFamily(){
-        return(childNumber+2);
-    }
-    String[]childrenArray(){
-        String[]a = new String[childNumber];
-        for(int j=0;j<childNumber;j++)
-            a[j]=children[j].getName()+" "+children[j].getSurname();
-        return a;
+        return 2+children.length;
     }
 
-    public String toString(){
-        return String.format("Family{Father: %s %s, Mother: %s %s, Children: %s, Members: %d}", father.getName(),father.getSurname(),
-                mother.getName(), mother.getSurname(), Arrays.toString(childrenArray()),countFamily());
+    public Human getMother() {
+        return mother;
+    }
+
+    public void setMother(Human mother) {
+        this.mother = mother;
+    }
+
+    public Human getFather() {
+        return father;
+    }
+
+    public void setFather(Human father) {
+        this.father = father;
+    }
+
+    public Human[] getChildren() {
+        return children;
+    }
+
+    public void setChildren(Human[] children) {
+        this.children = children;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Family{mother=%s %s, father=%s %s, children=%s, pet=%s}",
+                mother.getName(),mother.getSurname(), father.getName(),father.getSurname(), Arrays.toString(children), pet.getNickname());
     }
 
     @Override
@@ -91,8 +95,7 @@ public class Family {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Family family = (Family) o;
-        return childNumber == family.childNumber &&
-                Objects.equals(mother, family.mother) &&
+        return Objects.equals(mother, family.mother) &&
                 Objects.equals(father, family.father) &&
                 Arrays.equals(children, family.children) &&
                 Objects.equals(pet, family.pet);
@@ -100,7 +103,7 @@ public class Family {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(mother, father, pet, childNumber);
+        int result = Objects.hash(mother, father, pet);
         result = 31 * result + Arrays.hashCode(children);
         return result;
     }
