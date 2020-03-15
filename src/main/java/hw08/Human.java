@@ -1,28 +1,28 @@
-package hw06;
+package hw08;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class Human {
     private String name, surname;
     private int year,iq;
     private Family family;
-    String [][] schedule = {{"Monday",""},{"Tuesday",""},{"Wednesday",""},{"Thursday",""},
-            {"Friday",""},{"Saturday",""},{"Sunday",""}};
+    Map <String, String> schedule;
 
     Human(){
-
+        createSchedule();
     }
     Human(String name, String surname, int year){
         this.name=name;
         this.surname=surname;
         this.year=year;
+        createSchedule();
     }
     Human(String name, String surname, int year, Family family){
         this.name=name;
         this.surname=surname;
         this.year=year;
         this.family=family;
+        createSchedule();
     }
     static {
         System.out.println("Human class is being loaded");
@@ -39,7 +39,7 @@ public class Human {
     }
     public String toString(){
         String s = String.format("Human{name=%s, surname=%s, year=%d, iq=%d, schedule=%s}",
-                name,surname,year,iq, Arrays.deepToString(getSchedule()));
+                name,surname,year,iq, schedule);
         return s;
     }
 
@@ -80,13 +80,19 @@ public class Human {
         return this.iq;
     }
 
-    void setSchedule (String day, String task) {
-        for(int i=0;i<7;i++)
-            if(schedule[i][0].equals(day))
-                schedule[i][1]=task;
+    void createSchedule(){
+        schedule = new HashMap<>();
+        String []days={"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+        for(String el:days){
+            schedule.put(el,"");
+        }
     }
 
-    String  [][]getSchedule (){
+    void setSchedule (String day, String task) {
+        schedule.replace(day,task);
+    }
+
+    Map <String,String> getSchedule (){
         return schedule;
     }
 
@@ -99,8 +105,8 @@ public class Human {
 
     @Override
     public boolean equals(Object o) {
-        //if (this == o) return true;
-        //if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Human human = (Human) o;
         return year == human.year &&
                 Objects.equals(name, human.name) &&

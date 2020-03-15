@@ -8,9 +8,7 @@ public class happyFamily {
         Human father, mother, child1,child2;
         Family family;
         Pet pet ;
-        father = new Human();
-        father.setName("Alpay");
-        father.setSurname("Rzayev");
+        father = new Human("Alpay", "Rzayev", 1964);
         mother = new Human("Xədicə", "Rzayeva", 1971);
         family = new Family(father,mother);
         child1 = new Human("Gülay", "Rzayeva", 1992, family);
