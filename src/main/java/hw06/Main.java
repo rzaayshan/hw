@@ -13,14 +13,15 @@ public class Main {
         String [][] schedule = {{DayOfWeek.MONDAY.name(), "reading"},{DayOfWeek.TUESDAY.name(), "shopping"}};
         Human child1 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule);
         Human child2 = new Human("Nicat", "Rzayev", 1998, family, 80, schedule);
+        family.addChild(child1);
         family.addChild(child2);
         family.deleteChild(child1);
 
         System.out.println(pet);
 
-        for(int i=0;i<100000;i++){
+        /*for(int i=0;i<100000;i++){
             Human h = new Human();
-        }
+        }*/
 
 
 

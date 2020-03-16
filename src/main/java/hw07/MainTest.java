@@ -1,4 +1,4 @@
-package hw06;
+package hw07;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +23,7 @@ class MainTest {
     @Test
     public void testPetToStr(){
         String []habits = {"eat","sleep","play"};
-        Pet pet = new Pet(Species.DOG,"Lucky",1, 77,habits);
+        Pet pet = new Dog("Lucky",1, 77,habits);
 
         String expected = "DOG{nickname='Lucky', age=1, trickLevel=77, habits=[eat, sleep, play], It can't fly, has fur, has 4 legs }";
         String actual = pet.toString();
@@ -53,7 +53,6 @@ class MainTest {
         Family family = new Family(mother,father);
         String [][] schedule = {{DayOfWeek.MONDAY.name(), "reading"},{DayOfWeek.TUESDAY.name(), "dsfs"}};
         Human child1 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule);
-        family.addChild(child1);
         int l1=family.getChildren().length;
 
         Human notChild = new Human("Nicat", "Rzayev", 1998);
@@ -87,7 +86,6 @@ class MainTest {
         Family family = new Family(mother,father);
         String [][] schedule = {{DayOfWeek.MONDAY.name(), "reading"},{DayOfWeek.TUESDAY.name(), "dsfs"}};
         Human child1 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule);
-        family.addChild(child1);
         int l1=family.getChildren().length;
 
         family.deleteChild(100);
@@ -160,10 +158,10 @@ class MainTest {
     @Test
     public void testPetEqual(){
         String []habits1 = {"eat","sleep","play"};
-        Pet pet1 = new Pet(Species.DOG,"Lucky",1, 77,habits1);
+        Pet pet1 = new Dog("Lucky",1, 77,habits1);
 
         String []habits2 = {"eat","sleep"};
-        Pet pet2 = new Pet(Species.DOG,"Lucky",1, 80,habits1);
+        Pet pet2 = new Dog("Lucky",1, 80,habits1);
 
         assert (pet1.equals(pet2));
     }
@@ -171,10 +169,10 @@ class MainTest {
     @Test
     public void testPetHashcode(){
         String []habits1 = {"eat","sleep","play"};
-        Pet pet1 = new Pet(Species.DOG,"Lucky",1, 77,habits1);
+        Pet pet1 = new Dog("Lucky",1, 77,habits1);
 
         String []habits2 = {"eat","sleep"};
-        Pet pet2 = new Pet(Species.DOG,"Lucky",1, 80,habits1);
+        Pet pet2 = new Dog("Lucky",1, 80,habits1);
 
         assert (pet1.hashCode()==pet2.hashCode());
     }

@@ -31,7 +31,6 @@ public class Human {
         this.surname=surname;
         this.year=year;
         this.family=family;
-        //family.addChild(this);
         System.out.println("A new Human object is created");
     }
 
@@ -42,7 +41,6 @@ public class Human {
         this.family=family;
         this.iq=iq;
         this.schedule=schedule;
-        family.addChild(this);
         System.out.println("A new Human object is created");
     }
 
