@@ -70,10 +70,11 @@ class MainTest {
         Human child1 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule);
         int l1=family.getChildren().length;
 
-        family.deleteChild(0);
+        Human deletedChild=family.deleteChild(0);
         int l2=family.getChildren().length;
 
         assertEquals(l2,l1-1);
+        assert(deletedChild.equals(child1));
     }
 
     @Test

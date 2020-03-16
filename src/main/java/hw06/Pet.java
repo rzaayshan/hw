@@ -88,8 +88,8 @@ public class Pet {
     @Override
     public String toString() {
         return String.format("%s{nickname='%s', age=%d, trickLevel=%d, habits=%s, It %s, %s, has %d legs }",
-                species.toString(),nickname,age,tricklevel, Arrays.toString(habits), species.isCanFly() ? "can fly" : "can't fly",
-                species.isHasFur() ? "has fur" : "hasn't fur", species.getNumberOfLegs());
+                species.toString(),nickname,age,tricklevel, Arrays.toString(habits), species.canFly ? "can fly" : "can't fly",
+                species.hasFur ? "has fur" : "hasn't fur", species.getNumberOfLegs() );
     }
 
     @Override

@@ -60,20 +60,22 @@ public class Family {
         return false;
     }
 
-    boolean deleteChild(int index){
+    Human deleteChild(int index){
+        Human child = new Human();
         if(index>-1 && index<children.length){
             int l = children.length;
             Human []newChildren = new Human[l-1];
             int j=0;
             for(int i=0;i<l;i++){
-                if(i==index)
-                    continue;
+                if(i==index){
+                    child = children[i];
+                    continue;}
                 newChildren[j++]=children[i];
             }
             children=newChildren;
-            return true;
+
         }
-        return false;
+        return child;
     }
 
     int countFamily(){
