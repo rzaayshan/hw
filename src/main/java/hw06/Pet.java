@@ -4,125 +4,114 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Pet {
-    private String nickname;
     private Species species;
-    private String [] habits;
-    private int tricklevel,age,habitNumber=0;
+    private String nickname;
+    private int age;
+    private int tricklevel;
+    private String []habits;
 
-    Pet(){
-
+    static {
+        System.out.println("A new Pet class is created");
     }
+
+    Pet() {
+        System.out.println("A new Pet object is created");
+    }
+
     Pet(Species species, String nickname){
         this.species=species;
         this.nickname=nickname;
+        System.out.println("A new Pet object is created");
     }
-    Pet(Species species, String nickname, String []habits, int tricklevel, int age){
+
+    Pet(Species species, String nickname, int age, int tricklevel, String []habits){
         this.species=species;
         this.nickname=nickname;
-        this.habits=habits;
-        this.tricklevel=tricklevel;
         this.age=age;
+        this.tricklevel=tricklevel;
+        this.habits=habits;
+        System.out.println("A new Pet object is created");
     }
-    static {
-        System.out.println("Pet class is being loaded");
-    }
-    {
-        System.out.println("Object of pet class is created");
-    }
+
     void eat(){
         System.out.println("I am eating.");
     }
+
     void respond(){
-        System.out.printf("Hello, owner. I am %s. I miss you!\n",this.nickname);
+        System.out.printf("Hello, owner. I am %s. I miss you!\n", nickname);
     }
+
     void foul(){
-        System.out.println("I need to cover it up.\n");
-    }
-    public String toString(){
-        String s = String.format("%s{nickname='%s', age=%d, trickLevel=%d, habits=%s, It %s, %s, has %d legs }",
-                species.toString(),nickname,age,tricklevel, Arrays.toString(habits),
-                species.canFly? "can fly" : "can't fly", species.hasFur? "has fur" : "hasn't fur", species.getNumberOfLegs() );
-        return s;
+        System.out.println("I need to cover it up.");
     }
 
-    void setNickname(String nickname){
-        this.nickname=nickname;
-    }
-    String getNickname(){
-        return this.nickname;
-    }
-    void setSpecies(Species species){
-        this.species=species;
-    }
-    Species getSpecies(){
-        return this.species;
-    }
-    void setHabits(String habit){
-        String []habitsNew = new String[habitNumber+1];
-        for(int i=0;i<habitNumber;i++)
-            habitsNew[i]=habits[i];
-        habitsNew[habitNumber++]=habit;
-        habits=habitsNew;
+    public Species getSpecies() {
+        return species;
     }
 
-    String []getHabits(){
+    public void setSpecies(Species species) {
+        this.species = species;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getTricklevel() {
+        return tricklevel;
+    }
+
+    public void setTricklevel(int tricklevel) {
+        this.tricklevel = tricklevel;
+    }
+
+    public String[] getHabits() {
         return habits;
     }
 
-    void setTricklevel(int tricklevel){
-        this.tricklevel=tricklevel;
+    public void setHabits(String[] habits) {
+        this.habits = habits;
     }
-    int getTricklevel(){
-        return this.tricklevel;
+
+    @Override
+    public String toString() {
+        return String.format("%s{nickname='%s', age=%d, trickLevel=%d, habits=%s, It %s, %s, has %d legs }",
+                species.toString(),nickname,age,tricklevel, Arrays.toString(habits), species.isCanFly() ? "can fly" : "can't fly",
+                species.isHasFur() ? "has fur" : "hasn't fur", species.getNumberOfLegs());
     }
-    void setAge(int age){
-        this.age=age;
-    }
-    int getAge(){
-        return this.age;
-    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
         Pet pet = (Pet) o;
-        return  Objects.equals(species, pet.species) &&
-                Objects.equals(nickname, pet.nickname) &&
-                Objects.equals(age, pet.age);
+        return age == pet.age &&
+                Objects.equals(species, pet.species) &&
+                Objects.equals(nickname, pet.nickname);
     }
+
     @Override
     public int hashCode() {
-        int result = Objects.hash(species, nickname, tricklevel, age);
-        result = 31 * result + Arrays.hashCode(habits);
+        int result = Objects.hash(species, nickname);
+        result = 31 * result + age;
         return result;
     }
 
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("Object of pet is deleted");
+        System.out.println("Pet object was deleted");
         super.finalize();
-    }
-
-    enum Species {
-        DOG(false,4,true),CAT(false,4,true),
-        FISH(false,0,false), BIRD(true, 2, false);
-        boolean canFly;
-        int numberOfLegs;
-        boolean hasFur;
-        Species(boolean canFly, int numberOfLegs, boolean hasFur){
-            this.canFly=canFly;
-            this.numberOfLegs=numberOfLegs;
-            this.hasFur=hasFur;
-        }
-        boolean isCanFly(){
-            return canFly;
-        }
-        int getNumberOfLegs(){
-            return numberOfLegs;
-        }
-        boolean isHasFur(){
-            return hasFur;
-        }
-
     }
 }
