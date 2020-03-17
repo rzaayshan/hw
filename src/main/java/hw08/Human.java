@@ -1,134 +1,143 @@
 package hw08;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
 
 public class Human {
-    private String name, surname;
-    private int year,iq;
+    private String name;
+    private String surname;
+    private int year;
+    private int iq;
     private Family family;
-    Map <String, String> schedule;
+    private Map<DayOfWeek, String> schedule;
 
-    Human(){
-        createSchedule();
+    static {
+        System.out.println("A new Human class is created");
     }
-    Human(String name, String surname, int year){
+
+    Human() {
+        System.out.println("A new Human object is created");
+
+    }
+
+    Human(String name, String surname,int year){
         this.name=name;
         this.surname=surname;
         this.year=year;
-        createSchedule();
+        System.out.println("A new Human object is created");
     }
     Human(String name, String surname, int year, Family family){
         this.name=name;
         this.surname=surname;
         this.year=year;
         this.family=family;
-        createSchedule();
-    }
-    static {
-        System.out.println("Human class is being loaded");
-    }
-    {
-        System.out.println("Object of human class is created");
-    }
-    void greetPet(){
-        System.out.printf("Hello, %s.\n", family.getPet().getNickname());
-    }
-    void describePet(){
-        System.out.printf("I have a %s, he is %d years old, he is %s.\n",family.getPet().getSpecies(),
-                family.getPet().getAge(),family.getPet().getTricklevel()>50 ? "very sly" : "almost not sly" );
-    }
-    public String toString(){
-        String s = String.format("Human{name=%s, surname=%s, year=%d, iq=%d, schedule=%s}",
-                name,surname,year,iq, schedule);
-        return s;
+        System.out.println("A new Human object is created");
     }
 
-    boolean feedPet(boolean b){
-        if(!b){
-            int r = (int) (Math.random()*101);
-            if(family.getPet().getTricklevel()<r){
-                System.out.printf("I think %s is not hungry.\n",family.getPet().getNickname());
-                return false;
-            }
+    Human(String name, String surname, int year, Family family, int iq, Map<DayOfWeek,String> schedule){
+        this.name=name;
+        this.surname=surname;
+        this.year=year;
+        this.family=family;
+        this.iq=iq;
+        this.schedule=schedule;
+        System.out.println("A new Human object is created");
+    }
+
+    void greetPet(Pet p){
+        System.out.printf("Hello, %s.\n", p.getNickname());
+    }
+
+    void describePet(Pet p){
+        System.out.printf("I have a %s, he is %d years old, he is %s.\n",
+                p.getSpecies(), p.getAge(), p.getTricklevel()>50?"very sly":"almost not sly");
+    }
+
+    boolean feedPet(Pet p, boolean b){
+        if(!b && (int)(Math.random()*101)>p.getTricklevel()){
+            System.out.printf("I think %s is not hungry.",p.getNickname());
+            return false;
         }
-        System.out.printf("Hm... I will feed %s.\n",family.getPet().getNickname());
+        System.out.printf("Hm... I will feed %s.",p.getNickname());
         return true;
     }
 
-    void setName(String name){
-        this.name=name;
-    }
-    String getName(){
-        return this.name;
-    }
-    void setSurname(String surname){
-        this.surname=surname;
-    }
-    String getSurname(){
-        return this.surname;
-    }
-    void setYear(int year){
-        this.year=year;
-    }
-    int getYear(){
-        return this.year;
-    }
-    void setIq(int iq){
-        this.iq=iq;
-    }
-    int getIq(){
-        return this.iq;
+    public String getName() {
+        return name;
     }
 
-    void createSchedule(){
-        schedule = new HashMap<>();
-        String []days={"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
-        for(String el:days){
-            schedule.put(el,"");
-        }
+    public void setName(String name) {
+        this.name = name;
     }
 
-    void setSchedule (String day, String task) {
-        schedule.replace(day,task);
+    public String getSurname() {
+        return surname;
     }
 
-    Map <String,String> getSchedule (){
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getIq() {
+        return iq;
+    }
+
+    public void setIq(int iq) {
+        this.iq = iq;
+    }
+
+    public Map<DayOfWeek, String> getSchedule() {
         return schedule;
     }
 
-    void setFamily(Family family){
-            this.family=family;
+    public void setSchedule(Map<DayOfWeek, String> schedule) {
+        this.schedule = schedule;
     }
-    Family getFamily(){
+
+    public Family getFamily() {
         return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Human{name=%s, surname=%s, year=%d, iq=%d, schedule=%s}",
+                name, surname, year, iq, schedule);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
         Human human = (Human) o;
         return year == human.year &&
+                iq == human.iq &&
                 Objects.equals(name, human.name) &&
-                Objects.equals(surname, human.surname);
+                Objects.equals(surname, human.surname) &&
+                Objects.equals(family, human.family);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(name, surname, year);
-        result = 31 * result ;
+        int result = Objects.hash(name, surname);
+        result = 31 * result + iq*year;
         return result;
     }
 
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("Object of human is deleted");
+        System.out.println("Human object was deleted");
         super.finalize();
     }
 }
-
-
-
-
-
-

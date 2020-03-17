@@ -2,8 +2,8 @@ package hw07;
 
 public class Main {
     public static void main(String[] args) {
-        Human mother = new Human("Xədicə", "Rzayeva", 1971); ;
-        Human father = new Human("Alpay", "Rzayev", 1971);
+        Human mother = new Woman("Xədicə", "Rzayeva", 1971); ;
+        Human father = new Man("Alpay", "Rzayev", 1971);
         Family family = new Family(mother,father);
 
         String []habits = {"eat","sleep","play"};

@@ -135,7 +135,7 @@ class MainTest {
         Human human1 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule1);
 
         String [][] schedule2 = {{DayOfWeek.MONDAY.name(), "shopping"},{DayOfWeek.TUESDAY.name(), "watching film"}};
-        Human human2 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule1);
+        Human human2 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule2);
 
         assert(human1.equals(human2));
     }
@@ -150,7 +150,7 @@ class MainTest {
         Human human1 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule1);
 
         String [][] schedule2 = {{DayOfWeek.MONDAY.name(), "shopping"},{DayOfWeek.TUESDAY.name(), "watching film"}};
-        Human human2 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule1);
+        Human human2 = new Human("Gülay", "Rzayeva", 1992, family, 90, schedule2);
 
         assert(human1.hashCode()==human2.hashCode());
     }
@@ -161,7 +161,7 @@ class MainTest {
         Pet pet1 = new Dog("Lucky",1, 77,habits1);
 
         String []habits2 = {"eat","sleep"};
-        Pet pet2 = new Dog("Lucky",1, 80,habits1);
+        Pet pet2 = new Dog("Lucky",1, 80,habits2);
 
         assert (pet1.equals(pet2));
     }
@@ -172,7 +172,7 @@ class MainTest {
         Pet pet1 = new Dog("Lucky",1, 77,habits1);
 
         String []habits2 = {"eat","sleep"};
-        Pet pet2 = new Dog("Lucky",1, 80,habits1);
+        Pet pet2 = new Dog("Lucky",1, 80,habits2);
 
         assert (pet1.hashCode()==pet2.hashCode());
     }

@@ -3,20 +3,25 @@ package hw08;
 import java.util.Set;
 
 public class RoboCat extends Pet {
-    RoboCat(){
+    RoboCat() {
         super();
+        this.setSpecies(Species.ROBOCAT);
     }
+
     RoboCat(String nickname){
         super(nickname);
+        this.setSpecies(Species.ROBOCAT);
     }
-    RoboCat(String nickname, Set<String> habits , int tricklevel, int age){
-        super(nickname,habits,tricklevel,age);
+
+    RoboCat(String nickname, int age, int tricklevel, Set<String> habits){
+        super(nickname,age,tricklevel,habits);
+        this.setSpecies(Species.ROBOCAT);
     }
+
     @Override
-    void respond(){
-        System.out.printf("Hello, owner. I am your Robocat, %s. I miss you!\n",this.nickname);
+    void respond() {
+        System.out.printf("Hello, owner. I am %s. I miss you!\n", this.getNickname());
     }
-    void foul(){
-        System.out.println("I need to cover it up.\n");
-    }
+
+
 }

@@ -1,105 +1,114 @@
 package hw08;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 public abstract class Pet {
-    String nickname;
-    Species species = Species.UNKNOWN;
+    private String nickname;
+    private int age;
+    private int tricklevel;
     Set<String> habits;
+    private Species species;
 
-    int tricklevel,age,habitNumber=0;
-    Pet(){
-        habits = new HashSet<>();
+    static {
+        System.out.println("A new Pet class is created");
     }
+
+    Pet() {
+        this.species=Species.UNKNOWN;
+        System.out.println("A new Pet object is created");
+    }
+
     Pet(String nickname){
         this.nickname=nickname;
-        habits = new HashSet<>();
+        this.species=Species.UNKNOWN;
+        System.out.println("A new Pet object is created");
     }
-    Pet(String nickname, Set <String> habits, int tricklevel, int age){
+
+    Pet(String nickname, int age, int tricklevel, Set<String> habits){
         this.nickname=nickname;
+        this.age=age;
+        this.tricklevel=tricklevel;
         this.habits=habits;
-        this.tricklevel=tricklevel;
-        this.age=age;
-    }
-    void setNickname(String nickname){
-        this.nickname=nickname;
-    }
-    String getNickname(){
-        return this.nickname;
-    }
-    void setSpecies(Species species){
-        this.species=species;
-    }
-    Species getSpecies(){
-        return this.species;
-    }
-    void setHabits(String habit){
-        habits.add(habit);
+        this.species=Species.UNKNOWN;
+        System.out.println("A new Pet object is created");
     }
 
-    Set <String> getHabits(){
-        return habits;
-    }
-
-    void setTricklevel(int tricklevel){
-        this.tricklevel=tricklevel;
-    }
-    int getTricklevel(){
-        return this.tricklevel;
-    }
-    void setAge(int age){
-        this.age=age;
-    }
-    int getAge(){
-        return this.age;
-    }
     void eat(){
         System.out.println("I am eating.");
     }
+
     abstract void respond();
+        //System.out.printf("Hello, owner. I am %s. I miss you!\n", nickname);
+
+
+    public Species getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(Species species) {
+        this.species = species;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getTricklevel() {
+        return tricklevel;
+    }
+
+    public void setTricklevel(int tricklevel) {
+        this.tricklevel = tricklevel;
+    }
+
+    public Set<String> getHabits() {
+        return habits;
+    }
+
+    public void setHabits(Set<String> habits) {
+        this.habits = habits;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s{nickname='%s', age=%d, trickLevel=%d, habits=%s, It %s, %s, has %d legs.}",
+                species.toString(),nickname,age,tricklevel, habits, species.canFly ? "can fly" : "can't fly",
+                species.hasFur ? "has fur" : "hasn't fur", species.getNumberOfLegs() );
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
         Pet pet = (Pet) o;
-        return  Objects.equals(species, pet.species) &&
-                Objects.equals(nickname, pet.nickname) &&
-                Objects.equals(age, pet.age);
+        return age == pet.age &&
+                Objects.equals(species, pet.species) &&
+                Objects.equals(nickname, pet.nickname);
     }
 
     @Override
     public int hashCode() {
-        return 31*(age*tricklevel+nickname.hashCode());
+        int result = Objects.hash(species, nickname);
+        result = 31 * result + age;
+        return result;
     }
 
     @Override
     protected void finalize() throws Throwable {
-        System.out.println("Object of pet is deleted");
+        System.out.println("Pet object was deleted");
         super.finalize();
     }
-
-    enum Species {
-        Dog(false,4,true),DomesticCat(false,4,true),
-        Fish(false,0,false), Bird(true, 2, false),
-        Robocat(false,4, false), UNKNOWN(false,0,false);
-        boolean canFly;
-        int numberOfLegs;
-        boolean hasFur;
-        Species(boolean canFly, int numberOfLegs, boolean hasFur){
-            this.canFly=canFly;
-            this.numberOfLegs=numberOfLegs;
-            this.hasFur=hasFur;
-        }
-        boolean isCanFly(){
-            return canFly;
-        }
-        int getNumberOfLegs(){
-            return numberOfLegs;
-        }
-        boolean isHasFur(){
-            return hasFur;
-        }
-
-    }}
+}

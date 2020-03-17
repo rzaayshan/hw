@@ -1,81 +1,90 @@
 package hw08;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-public class Family {
-    private Woman mother;
-    private Man father;
+public class Family implements HumanCreator {
+    private Human mother;
+    private Human father;
     private List<Human> children;
-    private Pet pet;
-    Family(Man father, Woman mother){
-        this.mother=mother;
-        this.father=father;
-        createChildren();
-    }
+    private Set<Pet> pet;
+
     static {
-        System.out.println("Family class is being loaded");
+        System.out.println("A new Family class is created");
     }
-    {
-        System.out.println("Object of family class is created");
-    }
-    void setMother(Woman mother){
+
+    Family(Human mother, Human father){
         this.mother=mother;
-    }
-    Human getMother(){
-        return this.mother;
-    }
-    void setFather(Man father){
         this.father=father;
-    }
-    Human getFather(){
-        return this.father;
-    }
-    void setPet(Pet pet){
-        this.pet=pet;
-    }
-    Pet getPet(){
-        return this.pet;
+        children=new LinkedList<>();
+        mother.setFamily(this);
+        father.setFamily(this);
+        System.out.println("A new Family object is created");
     }
 
-    List <Human> getChildren(){
-        return children;
-    }
-
-    void createChildren(){
-        children = new LinkedList<>();
-    }
-
-    void addChild(Human child) {
+    void addChild(Human child){
         children.add(child);
-        child.setFamily(this);
     }
 
     boolean deleteChild(Human child){
-        children.remove(child);
-        return true;
-       }
+        if(children.contains(child)){
+            children.remove(child);
+            return true;
+        }
+        return false;
+    }
 
-    void deleteChild(int index){
-       children.remove(index);
+    Human deleteChild(int index){
+        if(index>-1 && index<children.size())
+            return children.remove(index);
+        return new Human();
     }
 
     int countFamily(){
-        return (2+children.size());
+        return 2+children.size();
     }
 
+    public Human getMother() {
+        return mother;
+    }
 
-    public String toString(){
-        return String.format("Family{Father: %s %s, Mother: %s %s, Children: %s, Members: %d}", father.getName(),father.getSurname(),
-                mother.getName(), mother.getSurname(), children,countFamily());
+    public void setMother(Human mother) {
+        this.mother = mother;
+    }
+
+    public Human getFather() {
+        return father;
+    }
+
+    public void setFather(Human father) {
+        this.father = father;
+    }
+
+    public List<Human> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Human> children) {
+        this.children = children;
+    }
+
+    public Set<Pet> getPet() {
+        return pet;
+    }
+
+    public void setPet(Set<Pet> pet) {
+        this.pet = pet;
     }
 
     @Override
-    protected void finalize() throws Throwable {
-        System.out.println("Object of family is deleted");
-        super.finalize();
+    public String toString() {
+        return String.format("Family{mother=%s %s, father=%s %s, children=%s, pet=%s}",
+                mother.getName(),mother.getSurname(), father.getName(),father.getSurname(),
+                children.stream().map(h -> String.format("%s %s", h.getName(),h.getSurname() )).collect(Collectors.toList()),
+                pet.stream().map(p -> p.getNickname()).collect(Collectors.toList()));
     }
 
     @Override
@@ -92,5 +101,41 @@ public class Family {
     @Override
     public int hashCode() {
         return Objects.hash(mother, father, children, pet);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Family object was deleted");
+        super.finalize();
+    }
+
+    @Override
+    public Human bornChild() {
+        Human child;
+        String []boyName = {"Ramin", "Kənan", "Ruslan", "Eldar"};
+        String []girlName = {"Jalə", "Gülşən", "Aidə", "Zümrüd"};
+
+        int ranNum = (int)(Math.random()*101);
+        int name = (int)(Math.random()*4);
+
+        if (ranNum>49){
+            child = new Woman();
+            child.setName(girlName[name]);
+            child.setSurname(mother.getSurname());
+        }
+        else{
+            child = new Man();
+            child.setName(boyName[name]);
+            child.setSurname(father.getSurname());
+        }
+
+        child.setIq((mother.getIq()+father.getIq())/2);
+        child.setYear(2020);
+
+        this.addChild(child);
+        child.setFamily(this);
+
+        return child;
+
     }
 }

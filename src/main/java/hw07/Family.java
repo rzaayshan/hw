@@ -2,6 +2,7 @@ package hw07;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Family implements HumanCreator {
     private Human mother;
@@ -119,7 +120,9 @@ public class Family implements HumanCreator {
     @Override
     public String toString() {
         return String.format("Family{mother=%s %s, father=%s %s, children=%s, pet=%s}",
-                mother.getName(),mother.getSurname(), father.getName(),father.getSurname(), Arrays.toString(children), pet.getNickname());
+                mother.getName(),mother.getSurname(), father.getName(),father.getSurname(),
+                Arrays.stream(children).map(h->String.format("%s %s", h.getName(), h.getSurname())).collect(Collectors.toList()),
+                pet.getNickname());
     }
 
     @Override
