@@ -1,17 +1,13 @@
-package hw09;
+package hw09.Family;
 
 import java.util.List;
 
-public interface FamilyDao {
+public interface FamilyDAO {
     List<Family> getAllFamilies();
-    Family getFamilyByIndex(int index);
-    boolean deleteFamily(int index);
+    Family getFamilyById(int id);
+    boolean deleteFamily(int id);
     boolean deleteFamily(Family family);
     void saveFamily(Family family);
-
-
-
-
 
 
 
