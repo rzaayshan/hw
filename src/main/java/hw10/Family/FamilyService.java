@@ -1,21 +1,20 @@
 package hw10.Family;
 
-import hw10.Human.*;
+import hw10.Human.Human;
 import hw10.Pet.Pet;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class FamilyService {
-    CollectionFamilyDao familyDao;
+    private CollectionFamilyDao familyDao;
 
-    public FamilyService(CollectionFamilyDao familyDao){
-        this.familyDao=familyDao;
+    FamilyService(){
+        familyDao = new CollectionFamilyDao();
     }
 
     List<Family> getAllFamilies(){
@@ -44,8 +43,13 @@ public class FamilyService {
 
     Family deleteFamilyById(int id){
         Family f = familyDao.getFamilyById(id);
-        if(familyDao.deleteFamily(id));
-        return f;
+        if(familyDao.deleteFamily(id))
+            return f;
+        return null;
+    }
+
+    boolean deleteFamily(Family family){
+        return familyDao.deleteFamily(family);
     }
 
     Family bornChild(Family family, String gender){
@@ -60,21 +64,16 @@ public class FamilyService {
         return added;
     }
 
-    List<Human> deleteAllChildrenOlderThan(int age){
+    void deleteAllChildrenOlderThan(int age){
        List<Family> families = familyDao.getAllFamilies();
        Iterator<Family> it = families.iterator();
-       List<Human> allDeleted = new LinkedList<>();
        while(it.hasNext()){
            Family f = it.next();
            List<Human> children = f.getChildren();
-           List<Human> deleted = children.stream().filter(c -> ChronoUnit.YEARS.between(c.toDate(),LocalDate.now()) > age).
-                   collect(Collectors.toList());
            List<Human> saved = children.stream().filter(c -> ChronoUnit.YEARS.between(c.toDate(),LocalDate.now()) < age).
                    collect(Collectors.toList());
-           allDeleted.addAll(deleted);
            f.setChildren(saved);
        }
-       return allDeleted;
     }
 
     int count(){

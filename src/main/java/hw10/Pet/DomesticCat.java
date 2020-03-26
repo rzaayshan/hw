@@ -2,7 +2,7 @@ package hw10.Pet;
 
 import java.util.Set;
 
-public class DomesticCat extends Pet{
+public class DomesticCat extends Pet {
     DomesticCat() {
         super();
         this.setSpecies(Species.DOMESTICCAT);

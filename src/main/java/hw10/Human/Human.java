@@ -21,8 +21,6 @@ public class Human {
     private Family family;
     private Map<DayOfWeek, String> schedule;
 
-
-
     public Human() {
 
     }
@@ -40,8 +38,6 @@ public class Human {
         this.iq=iq;
 
     }
-
-
 
     Human(String name, String surname, String birthDate, Family family){
         this.name=name;
@@ -127,7 +123,7 @@ public class Human {
     }
 
     public String describeAge(){
-        Period age = Period.between(toDate(),LocalDate.now());
+        Period age = Period.between(toDate(), LocalDate.now());
         return String.format("%d years %d months %d days",age.getYears(),age.getMonths(),age.getDays());
     }
 

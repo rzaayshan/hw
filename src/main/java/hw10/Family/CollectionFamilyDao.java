@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class CollectionFamilyDao implements FamilyDAO {
-    List<Family> families;
+    private List<Family> families;
 
     public CollectionFamilyDao(){
         families=new LinkedList<>();

@@ -1,8 +1,12 @@
 package hw10.Family;
 
-import hw10.Human.*;
+import hw10.Human.Human;
+import hw10.Human.HumanCreator;
+import hw10.Human.Man;
+import hw10.Human.Woman;
 import hw10.Pet.Pet;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,7 +27,6 @@ public class Family implements HumanCreator {
 
     public void addChild(Human child){
         children.add(child);
-        child.setFamily(this);
     }
 
     public boolean deleteChild(Human child){

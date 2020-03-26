@@ -14,11 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FamilyServiceTest {
     FamilyService service;
-    CollectionFamilyDao familyDAO;
 
     @BeforeEach
     void setUp(){
-        this.familyDAO = new CollectionFamilyDao();
         this.service = new FamilyService();
     }
 
@@ -34,7 +32,7 @@ class FamilyServiceTest {
         service.createNewFamily(mother2,father2);
 
         List<Family> expected = List.of(family1,family2);
-        List<Family> actual = familyDAO.getAllFamilies();
+        List<Family> actual = service.getAllFamilies();
         assertEquals(expected,actual);
     }
 

@@ -1,18 +1,20 @@
 package hw10;
 
-import hw10.Family.*;
-import hw10.Human.*;
-import hw10.Pet.*;
+import hw10.Family.Family;
+import hw10.Family.FamilyController;
+import hw10.Human.Human;
+import hw10.Human.Man;
+import hw10.Human.Woman;
+import hw10.Pet.Dog;
+import hw10.Pet.Fish;
+import hw10.Pet.Pet;
 
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashSet;
 
 public class Main {
-    public static void main(String[] args) throws ParseException {
-        CollectionFamilyDao familyDAO = new CollectionFamilyDao();
-        FamilyService service = new FamilyService(familyDAO);
-        FamilyController controller = new FamilyController(service);
+    public static void main(String[] args) {
+        FamilyController controller = new FamilyController();
 
         //family1
         Human mother1 = new Woman("Xədicə", "Rzayeva", "12/05/1971");
@@ -44,9 +46,9 @@ public class Main {
         controller.bornChild(family2,"masculine");
         controller.bornChild(family2,"feminine");
 
+        ///////////////////////////////////////////////////
+
         controller.deleteAllChildrenOlderThan(-1);
         System.out.println(child2.describeAge());
-
-
     }
 }

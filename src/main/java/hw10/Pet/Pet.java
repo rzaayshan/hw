@@ -11,7 +11,7 @@ public abstract class Pet {
     private Species species;
 
     Pet() {
-        this.species=Species.UNKNOWN;
+        this.species= Species.UNKNOWN;
     }
 
     Pet(String nickname) {
@@ -25,7 +25,7 @@ public abstract class Pet {
         this.age=age;
         this.tricklevel=tricklevel;
         this.habits=habits;
-        this.species=Species.UNKNOWN;
+        this.species= Species.UNKNOWN;
     }
 
     void eat(){

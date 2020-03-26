@@ -1,7 +1,10 @@
 package hw10.Family;
 
-import hw10.Human.*;
-import hw10.Pet.*;
+import hw10.Human.Human;
+import hw10.Human.Man;
+import hw10.Human.Woman;
+import hw10.Pet.Dog;
+import hw10.Pet.Fish;
 import hw10.Pet.Pet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,12 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FamilyServiceTest {
     FamilyService service;
-    CollectionFamilyDao familyDAO;
 
     @BeforeEach
     void setUp(){
-        this.familyDAO = new CollectionFamilyDao();
-        this.service = new FamilyService(familyDAO);
+        this.service = new FamilyService();
     }
 
     @Test
@@ -34,7 +35,7 @@ class FamilyServiceTest {
         service.createNewFamily(mother2,father2);
 
         List<Family> expected = List.of(family1,family2);
-        List<Family> actual = familyDAO.getAllFamilies();
+        List<Family> actual = service.getAllFamilies();
         assertEquals(expected,actual);
     }
 
@@ -123,10 +124,12 @@ class FamilyServiceTest {
         Human father2 = new Man("Nicat", "Hacıyev", "12/10/1971");
         Family family2 = new Family(mother2,father2);
         service.createNewFamily(mother2,father2);
-        Human child2 = new Woman("Nigar", "Hacıyeva", "13/11/1997");
+        Human child1 = new Woman("Nigar", "Hacıyeva", "13/11/1997");
+        service.adoptChild(family2,child1);
+        Human child2 = new Woman("Ayxan", "Hacıyev", "13/11/2003");
         service.adoptChild(family2,child2);
-
-        assertEquals(List.of(child2),service.deleteAllChildrenOlderThan(20) );
+        service.deleteAllChildrenOlderThan(20);
+        assertEquals(List.of(child2), service.getFamilyById(1).getChildren());
     }
 
     @Test
