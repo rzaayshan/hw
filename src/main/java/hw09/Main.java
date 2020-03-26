@@ -9,9 +9,7 @@ import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) {
-        CollectionFamilyDao familyDAO = new CollectionFamilyDao();
-        FamilyService service = new FamilyService(familyDAO);
-        FamilyController controller = new FamilyController(service);
+        FamilyController controller = new FamilyController();
 
         //family1
         Human mother1 = new Woman("Xədicə", "Rzayeva", 1971);

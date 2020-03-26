@@ -3,6 +3,7 @@ package hw09.Family;
 import hw09.Human.*;
 import hw09.Pet.Pet;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,10 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FamilyService {
-    CollectionFamilyDao familyDao;
+    private CollectionFamilyDao familyDao;
 
-    public FamilyService(CollectionFamilyDao familyDao){
-        this.familyDao=familyDao;
+    FamilyService(){
+        familyDao = new CollectionFamilyDao();
     }
 
     List<Family> getAllFamilies(){
@@ -42,8 +43,9 @@ public class FamilyService {
 
     Family deleteFamilyById(int id){
         Family f = familyDao.getFamilyById(id);
-        if(familyDao.deleteFamily(id));
-        return f;
+        if(familyDao.deleteFamily(id))
+            return f;
+        return null;
     }
 
     boolean deleteFamily(Family family){
@@ -62,21 +64,16 @@ public class FamilyService {
         return added;
     }
 
-    List<Human> deleteAllChildrenOlderThan(int age){
+    void deleteAllChildrenOlderThan(int age){
        List<Family> families = familyDao.getAllFamilies();
        Iterator<Family> it = families.iterator();
-       List<Human> allDeleted = new LinkedList<>();
        while(it.hasNext()){
            Family f = it.next();
            List<Human> children = f.getChildren();
-           List<Human> deleted = children.stream().filter(c -> (2020 - c.getYear()) > age).
+           List<Human> saved = children.stream().filter(c -> (LocalDate.now().getYear() - c.getYear()) < age).
                    collect(Collectors.toList());
-           List<Human> saved = children.stream().filter(c -> (2020 - c.getYear()) < age).
-                   collect(Collectors.toList());
-           allDeleted.addAll(deleted);
            f.setChildren(saved);
        }
-       return allDeleted;
     }
 
     int count(){

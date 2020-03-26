@@ -19,7 +19,7 @@ class FamilyServiceTest {
     @BeforeEach
     void setUp(){
         this.familyDAO = new CollectionFamilyDao();
-        this.service = new FamilyService(familyDAO);
+        this.service = new FamilyService();
     }
 
     @Test
@@ -123,10 +123,12 @@ class FamilyServiceTest {
         Human father2 = new Man("Nicat", "Hacıyev", 1971);
         Family family2 = new Family(mother2,father2);
         service.createNewFamily(mother2,father2);
-        Human child2 = new Woman("Nigar", "Hacıyeva", 1997);
+        Human child1 = new Woman("Nigar", "Hacıyeva", 1997);
+        service.adoptChild(family2,child1);
+        Human child2 = new Woman("Ayxan", "Hacıyev", 2003);
         service.adoptChild(family2,child2);
-
-        assertEquals(List.of(child2),service.deleteAllChildrenOlderThan(20) );
+        service.deleteAllChildrenOlderThan(20);
+        assertEquals(List.of(child2), service.getFamilyById(1).getChildren());
     }
 
     @Test

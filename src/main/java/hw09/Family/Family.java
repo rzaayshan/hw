@@ -3,6 +3,7 @@ package hw09.Family;
 import hw09.Human.*;
 import hw09.Pet.Pet;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -108,7 +109,6 @@ public class Family implements HumanCreator {
         String []boyName = {"Ramin", "Kənan", "Ruslan", "Eldar"};
         String []girlName = {"Jalə", "Gülşən", "Aidə", "Zümrüd"};
 
-        //int ranNum = (int)(Math.random()*101);
         int name = (int)(Math.random()*4);
 
         if (gender.toLowerCase().equals("feminine")){
@@ -123,7 +123,7 @@ public class Family implements HumanCreator {
         }
 
         child.setIq((mother.getIq()+father.getIq())/2);
-        child.setYear(2020);
+        child.setYear(LocalDate.now().getYear());
 
         this.addChild(child);
         child.setFamily(this);

@@ -6,8 +6,8 @@ import hw09.Pet.Pet;
 public class FamilyController {
     FamilyService familyService;
 
-    public FamilyController(FamilyService familyService){
-        this.familyService=familyService;
+    public FamilyController(){
+        familyService = new FamilyService();
     }
 
 
@@ -55,8 +55,7 @@ public class FamilyController {
     }
 
     public void deleteAllChildrenOlderThan(int age){
-        System.out.printf("-Deleted children which are older than %s:\n",age);
-        familyService.deleteAllChildrenOlderThan(age).forEach(System.out::println);
+        System.out.printf("Children were deleted older than %d",age);
     }
 
     public void count(){
