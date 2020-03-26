@@ -4,7 +4,7 @@ import hw09.Human.Human;
 import hw09.Pet.Pet;
 
 public class FamilyController {
-    FamilyService familyService;
+    private FamilyService familyService;
 
     public FamilyController(){
         familyService = new FamilyService();
