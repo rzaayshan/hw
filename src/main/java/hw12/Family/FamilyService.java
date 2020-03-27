@@ -1,7 +1,7 @@
-package hw11.Family;
+package hw12.Family;
 
-import hw11.Human.Human;
-import hw11.Pet.Pet;
+import hw12.Human.Human;
+import hw12.Pet.Pet;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -40,25 +40,24 @@ public class FamilyService {
         familyDao.saveFamily(new Family(mother,father));
     }
 
-    Family deleteFamilyById(int id){
-        Family f = familyDao.getFamilyById(id);
-        if(familyDao.deleteFamily(id))
-            return f;
-        return null;
+    void saveFamily(Family family){
+        familyDao.saveFamily(family);
     }
 
-    boolean deleteFamily(Family family){
-        return familyDao.deleteFamily(family);
+    void deleteFamilyById(int id){
+        familyDao.deleteFamily(id);
     }
 
-    Family bornChild(Family family, String gender){
-        Family added = familyDao.getFamilyBy(f->f.hashCode()==family.hashCode()&&f.equals(family)).get(0);
-        added.bornChild(gender);
+
+    Family bornChild(int id, String gender, String name){
+        Family added = familyDao.getFamilyById(id);
+        added.bornChild(gender,name);
         return added;
     }
 
-    Family adoptChild(Family family, Human child){
-        Family added = familyDao.getFamilyBy(f->(f.hashCode()==family.hashCode()&&f.equals(family))).get(0);
+
+    Family adoptChild(int id, Human child){
+        Family added = familyDao.getFamilyById(id);
         added.addChild(child);
         return added;
     }
@@ -66,7 +65,7 @@ public class FamilyService {
     void deleteAllChildrenOlderThan(int age){
         List<Family> result = familyDao.getAllFamilies().stream()
                 .flatMap(oneFamily -> oneFamily.getChildren().stream()
-                        .filter(oneChild -> ChronoUnit.YEARS.between(oneChild.toDate(),LocalDate.now()) > age)
+                        .filter(oneChild -> ChronoUnit.YEARS.between(oneChild.getBirthDate(),LocalDate.now()) > age)
                         .map(Human::getFamily))
                 .distinct()
                 .collect(Collectors.toList());
@@ -79,6 +78,9 @@ public class FamilyService {
 
     Family getFamilyById(int id){
         return familyDao.getFamilyById(id);
+    }
+    String InfoFamily(int id){
+        return familyDao.getFamilyById(id).prettyFormat();
     }
 
     List<Pet> getPet(int id){
