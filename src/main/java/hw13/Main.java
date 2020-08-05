@@ -1,13 +1,23 @@
 package hw13;
 
 import hw13.Family.FamilyController;
+import hw13.Family.FamilyService;
+import hw13.Family.FileFamilyDao;
+import hw13.Logger.LogDAO;
+import hw13.Logger.Logger;
 
+
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        FamilyController controller = new FamilyController();
-        String command = new String();
+        LogDAO logDAO = new LogDAO("families.log");
+        Logger logger = new Logger(logDAO);
+        FileFamilyDao familyDao = new FileFamilyDao("families",logger);
+        FamilyService service = new FamilyService(familyDao);
+        FamilyController controller = new FamilyController(service);
+        String command = "";
 
         while (!command.toLowerCase().equals("exit")){
             controller.menu();
@@ -25,10 +35,17 @@ public class Main {
                 case "8.3": break;
                 case "9": controller.deleteAllChildrenOlderThan(); break;
                 case "10": controller.getFamilyById(); break;
+                /*case "11.1": logController.history();
+                case "11.2": logController.historyByDate();*/
                 case "exit": break;
                 default:
                     System.out.println("Wrong command!");
             }
+
         }
+
+
+
+
     }
 }

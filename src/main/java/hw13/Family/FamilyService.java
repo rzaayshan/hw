@@ -3,6 +3,7 @@ package hw13.Family;
 import hw13.Human.*;
 import hw13.Pet.Pet;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -15,8 +16,9 @@ public class FamilyService {
     //private CollectionFamilyDao familyDao;
     private FileFamilyDao familyDao;
 
-    FamilyService(){
-        familyDao = new FileFamilyDao("families");
+
+    public FamilyService(FileFamilyDao familyDao){
+        this.familyDao=familyDao;
     }
 
     Collection<Family> getAllFamilies(){

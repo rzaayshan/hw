@@ -15,8 +15,11 @@ import java.util.Scanner;
 public class FamilyController {
     private FamilyService familyService;
 
-    public FamilyController(){
-        familyService = new FamilyService();
+
+
+    public FamilyController(FamilyService familyService){
+        this.familyService = familyService;
+
     }
 
 
@@ -172,7 +175,8 @@ public class FamilyController {
                 "\t2. Adopt a child\n" +
                 "\t3. Return to main menu\n" +
                 "9. Remove all children over the age of majority\n" +
-                "10. Display family" +
+                "10. Display family\n" +
+                "11. History\n" +
                 "Exit(exit)";
         System.out.println(menu);
     }
@@ -183,6 +187,7 @@ public class FamilyController {
         }
         System.out.println("New families were created.");
     }
+
 
 
 }
